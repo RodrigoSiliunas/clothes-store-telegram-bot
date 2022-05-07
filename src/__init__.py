@@ -50,6 +50,14 @@ def webhook_valid_payment():
         pprint(data)
 
         transfer_paid_items(data['charge']['correlationID'])
+
+        return jsonify({
+            "success": {
+                "message": "Pix's status has changed and the payment appears as paid.",
+                "data": data,
+                "code": 201,
+            }
+        }), 201
     except:
         return jsonify({
             "error": {
