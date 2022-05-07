@@ -10,4 +10,5 @@ class DevelopmentConfiguration(Configuration):
 
 
 class ProductionConfiguration(Configuration):
+    MONGO_URI = os.environ.get('MONGO_URI')
     BOT_SECRET_KEY = os.environ.get("BOT_SECRET_KEY")

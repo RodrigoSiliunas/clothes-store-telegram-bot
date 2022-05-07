@@ -18,6 +18,7 @@ from src.routes import payment
 from src import inline
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 from telegram.ext import (
     Updater,
@@ -29,7 +30,7 @@ from telegram.ext import (
     MessageHandler
 )
 
-# Enable logging
+# Enable basic logging
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
 )
@@ -37,6 +38,7 @@ logger = logging.getLogger(__name__)
 
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 @app.route('/api/v1/payment', methods=['POST'])
