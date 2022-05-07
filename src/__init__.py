@@ -20,6 +20,8 @@ from src import inline
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+from pprint import pprint
+
 from telegram.ext import (
     Updater,
     Filters,
@@ -45,6 +47,7 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 def webhook_valid_payment():
     try:
         data = request.get_json()
+        pprint(data)
 
         transfer_paid_items(data['charge']['correlationID'])
     except:
@@ -141,6 +144,5 @@ def main() -> None:
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
-    # port = int(os.environ.get('PORT', 5000))
-    # host='0.0.0.0', port=port
-    app.run()
+    # Start Webhook
+    app.run(host='0.0.0.0', port=os.environ.get("PORT", 5000))
