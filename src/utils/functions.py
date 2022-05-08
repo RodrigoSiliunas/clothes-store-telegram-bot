@@ -157,8 +157,7 @@ def transfer_paid_items(transaction_id: str) -> None:
         {
             '$addToSet': {
                 'types': {
-                    '$each': user['cart'],
-                    '$sort': -1
+                    '$each': user['cart']
                 }
             }
         },
