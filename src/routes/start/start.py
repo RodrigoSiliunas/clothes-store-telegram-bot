@@ -64,8 +64,8 @@ def start(update: Update, context: CallbackContext) -> int:
         [
             InlineKeyboardButton("🛒 Meu Carrinho",
                                  callback_data="cart_main_page"),
-            InlineKeyboardButton("💸 Últimos Pedidos",
-                                 callback_data="last_orders")
+            InlineKeyboardButton("💸 Meus Pedidos",
+                                 callback_data="my_orders")
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)

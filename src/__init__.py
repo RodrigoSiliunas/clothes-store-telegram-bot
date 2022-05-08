@@ -13,6 +13,7 @@ from src.routes import cart
 from src.routes import start
 from src.routes import account
 from src.routes import payment
+from src.routes import orders
 
 from src import inline
 
@@ -84,7 +85,9 @@ def main() -> None:
                 CallbackQueryHandler(
                     account.main_page, pattern='^' + 'user_information' + '$'),
                 CallbackQueryHandler(
-                    cart.main_page, pattern='^' + 'cart_main_page' + '$')
+                    cart.main_page, pattern='^' + 'cart_main_page' + '$'),
+                CallbackQueryHandler(
+                    orders.main_page, pattern='^' + 'my_orders' + '$')
             ],
             ACCOUNT: [
                 CallbackQueryHandler(
