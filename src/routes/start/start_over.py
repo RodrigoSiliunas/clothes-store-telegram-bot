@@ -20,7 +20,7 @@ def over(update: Update, context: CallbackContext) -> int:
             InlineKeyboardButton("🛒 Meu Carrinho",
                                  callback_data="cart_main_page"),
             InlineKeyboardButton("💸 Meus Pedidos",
-                                 callback_data="my_orders")
+                                 callback_data="orders_main_page")
         ]
     ]
 

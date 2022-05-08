@@ -87,7 +87,7 @@ def main() -> None:
                 CallbackQueryHandler(
                     cart.main_page, pattern='^' + 'cart_main_page' + '$'),
                 CallbackQueryHandler(
-                    orders.main_page, pattern='^' + 'my_orders' + '$')
+                    orders.main_page, pattern='^' + 'orders_main_page' + '$')
             ],
             ACCOUNT: [
                 CallbackQueryHandler(

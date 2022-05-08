@@ -10,6 +10,8 @@ def main_page(update: Update, callback: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
 
+    print('isso está sendo clicado')
+
     user = SOLDED_COLLECTION.find_one(
         {'identifier': update.effective_user.id}
     )
@@ -17,12 +19,14 @@ def main_page(update: Update, callback: CallbackContext) -> int:
 
     # If user don't have any registred orders in database, return a message and do nothing.
     if (len(orders) < 1):
+        print("travou nessa buceta")
         callback.bot.send_message(
             'Você não possui nenhum item em seus últimos pedidos.')
         return
 
     page = user['page']
 
+    reply_markup = get_reply_markup()
     message = get_default_message(
         identifier=orders[page]['identifier'],
         number=orders[page]['number'],
@@ -31,7 +35,7 @@ def main_page(update: Update, callback: CallbackContext) -> int:
         price=orders[page]['value']
 
     )
-    reply_markup = get_reply_markup()
+    
 
     query.edit_message_text(
         text=message, reply_markup=reply_markup, parse_mode='Markdown')
