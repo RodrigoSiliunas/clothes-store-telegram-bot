@@ -19,8 +19,8 @@ def previous_page(update: Update, context: CallbackContext) -> int:
     page = user['page']
     orders = user['types']
 
-    # Number of page is lower than number of orders.
-    if (page) <= (len(orders) - 1):
+    # Number of page is lower than zero.
+    if (page) <= 0:
         return
 
     # We decrement the current page number by one in the database.
