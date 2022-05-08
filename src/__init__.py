@@ -45,9 +45,9 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 def webhook_payment_check():
     if request.method == 'POST':
         data = request.get_json()
-        id = data['charge']['correlationID']
+        uuid = data['charge']['correlationID']
 
-        transfer_paid_items(id)
+        transfer_paid_items(uuid)
 
         return jsonify({
             "success": {
