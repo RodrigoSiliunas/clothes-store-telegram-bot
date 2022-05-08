@@ -4,7 +4,7 @@ import logging
 from multiprocessing import Process
 from src.configuration import DevelopmentConfiguration
 
-from src.utils.constants import HOME, ACCOUNT, STORE, CART, PAYMENT
+from src.utils.constants import HOME, ACCOUNT, STORE, CART, PAYMENT, ORDERS
 from src.utils.functions import delete_message, remove_unfinished_order, transfer_paid_items
 
 
@@ -119,6 +119,14 @@ def main() -> None:
                     start.over, pattern='^' + 'back_to_home' + '$'),
                 CallbackQueryHandler(
                     payment.create_pix_request, pattern='^' + 'create_pix_request' + '$'),
+            ],
+            ORDERS: [
+                CallbackQueryHandler(
+                    start.over, pattern='^' + 'back_to_home' + '$'),
+                # CallbackQueryHandler(
+                #     start.over, pattern='^' + 'back_to_home' + '$'),
+                # CallbackQueryHandler(
+                #     start.over, pattern='^' + 'back_to_home' + '$')
             ]
         },
         fallbacks=[CommandHandler('start', start.start)],

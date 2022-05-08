@@ -10,6 +10,7 @@ ACCOUNT = 1
 STORE = 2
 CART = 3
 PAYMENT = 4
+ORDERS = 5
 
 
 # Constants for navigating between MongoDB collections.

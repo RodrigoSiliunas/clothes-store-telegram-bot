@@ -1,5 +1,4 @@
 from .utils import get_reply_markup, get_default_message
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram import Update
 from telegram.ext import CallbackContext
 from src.utils.constants import COSTUMERS_COLLECTION, STORE_COLLECTION, CART

@@ -152,9 +152,12 @@ def transfer_paid_items(transaction_id: str) -> None:
 
     SOLDED_COLLECTION.update_one(
         {
-            'identifier': user_identifier
+            'identifier': user_identifier,
         },
         {
+            '$set': {
+                'page': 0
+            },
             '$addToSet': {
                 'types': {
                     '$each': user['cart']
