@@ -45,9 +45,10 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route('/api/v1/payment', methods=['POST'])
 def webhook_valid_payment():
-    data = request.get_json()
+    # data = request.get_json()
 
-    transfer_paid_items(data['charge']['correlationID'])
+    # transfer_paid_items(data['charge']['correlationID'])
+    print('Foda-se!')
 
     return jsonify({
         "success": {
