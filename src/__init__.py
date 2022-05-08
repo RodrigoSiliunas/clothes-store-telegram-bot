@@ -45,27 +45,17 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route('/api/v1/payment', methods=['POST'])
 def webhook_valid_payment():
-    try:
-        data = request.get_json()
-        pprint(data)
+    data = request.get_json()
 
-        transfer_paid_items(data['charge']['correlationID'])
+    transfer_paid_items(data['charge']['correlationID'])
 
-        return jsonify({
-            "success": {
-                "message": "Pix's status has changed and the payment appears as paid.",
-                "data": data,
-                "code": 200,
-            }
-        }), 200
-    except:
-        return jsonify({
-            "error": {
-                "message": "Something went wrong with the order validation. Please try again immediately and if the error persists, contact support.",
-                "type": "HookCheckValidPayment",
-                "code": 503
-            }
-        }), 503  # Service Unavaible Response
+    return jsonify({
+        "success": {
+            "message": "Pix's status has changed and the payment appears as paid.",
+            "data": data,
+            "code": 200,
+        }
+    }), 200
 
 
 def main() -> None:
