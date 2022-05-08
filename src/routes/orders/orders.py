@@ -10,13 +10,7 @@ def main_page(update: Update, callback: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
 
-    keyboard = [
-        [
-            InlineKeyboardButton("🔙 Voltar à página inicial",
-                                 callback_data='back_to_home')
-        ]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = get_reply_markup()
 
     message_to_send = f'Mano, não tô entendendo mais nada!!!'
     query.edit_message_text(
