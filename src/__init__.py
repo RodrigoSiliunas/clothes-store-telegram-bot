@@ -53,7 +53,7 @@ def webhook_valid_payment():
     return jsonify({
         "success": {
             "message": "Pix's status has changed and the payment appears as paid.",
-            "data": data,
+            "data": "data",
             "code": 200,
         }
     }), 200
