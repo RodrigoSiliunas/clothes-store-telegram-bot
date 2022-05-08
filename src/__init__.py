@@ -142,6 +142,3 @@ def main() -> None:
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
-
-    # Start Webhook
-    app.run(host='0.0.0.0', port=os.environ.get("PORT", 5000))
