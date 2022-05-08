@@ -32,12 +32,11 @@ def next_page(update: Update, context: CallbackContext) -> int:
         return CART
 
     # We increment the current page number by one in the database.
-    if page < orders_in_bag:
-        STORE_COLLECTION.update_one(
-            {'identifier': update.effective_user.id},
-            {'$set': {'cart_information.0.acctualy_page': page+1}}
-        )
-        page += 1
+    page += 1
+    STORE_COLLECTION.update_one(
+        {'identifier': update.effective_user.id},
+        {'$set': {'cart_information.0.acctualy_page': page}}
+    )
 
     message_to_send = get_default_message(
         identifier=cart["cart"][page]["_id"],

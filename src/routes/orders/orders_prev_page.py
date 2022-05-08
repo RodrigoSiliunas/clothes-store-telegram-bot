@@ -6,21 +6,35 @@ from telegram.ext import CallbackContext
 from src.utils.constants import ORDERS, SOLDED_COLLECTION
 
 
-def main_page(update: Update, callback: CallbackContext) -> int:
+def previous_page(update: Update, context: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
 
     user = SOLDED_COLLECTION.find_one(
-        {'identifier': update.effective_user.id}
+        {
+            'identifier': update.effective_user.id
+        }
     )
-    orders = user['types']
-    page = user['page']
 
-    # If user don't have any registred orders in database, return a message and do nothing.
-    if (len(orders) <= 0):
-        callback.bot.send_message(
-            'Você não possui nenhum item em seus últimos pedidos.')
+    page = user['page']
+    orders = user['types']
+
+    # Number of page is lower than number of orders.
+    if (page) <= (len(orders) - 1):
         return
+
+    # We decrement the current page number by one in the database.
+    page -= 1
+    SOLDED_COLLECTION.update_one(
+        {
+            'identifier': update.effective_user.id
+        },
+        {
+            '$set': {
+                'page': page
+            }
+        }
+    )
 
     message = get_default_message(
         update.effective_user.id,

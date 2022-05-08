@@ -123,7 +123,11 @@ def main() -> None:
             ],
             ORDERS: [
                 CallbackQueryHandler(
-                    start.over, pattern='^' + 'back_to_home' + '$')
+                    start.over, pattern='^' + 'back_to_home' + '$'),
+                CallbackQueryHandler(
+                    orders.next_page, pattern='^' + 'orders_next_page' + '$'),
+                CallbackQueryHandler(
+                    orders.previous_page, pattern='^' + 'orders_prev_page' + '$')
             ]
         },
         fallbacks=[CommandHandler('start', start.start)],
