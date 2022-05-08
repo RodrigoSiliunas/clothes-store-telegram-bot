@@ -24,23 +24,15 @@ def main_page(update: Update, callback: CallbackContext) -> int:
 
     reply_markup = get_reply_markup()
 
-    message_to_send = f'Mano, não tô entendendo mais nada!!!'
+    message_to_send = get_default_message(
+        identifier=update.effective_user.id,
+        number=orders[page]['number'],
+        age=orders[page]['age'],
+        state=orders[page]['state'],
+        price=orders[page]['value']
+    )
+
     query.edit_message_text(
         text=message_to_send, reply_markup=reply_markup, parse_mode='Markdown')
-
-
-
-    # message_to_send = get_default_message(
-    #     identifier=orders[page]['identifier'],
-    #     number=orders[page]['number'],
-    #     age=orders[page]['age'],
-    #     state=orders[page]['state'],
-    #     price=orders[page]['value']
-
-    # )
-    # reply_markup = get_reply_markup()
-
-    # query.edit_message_text(
-    #     text=message_to_send, reply_markup=reply_markup, parse_mode='Markdown')
 
     return ORDERS
