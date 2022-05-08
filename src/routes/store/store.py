@@ -24,10 +24,6 @@ def main_page(update: Update, context: CallbackContext) -> int:
                                  switch_inline_query_current_chat="display states"),
             InlineKeyboardButton("🔍 Buscar por Idade 👴",
                                  switch_inline_query_current_chat="display by age")
-        ],
-        [
-            InlineKeyboardButton("🧚🏻‍♀️ Efetuar Pagamento 💸",
-                                 callback_data="open_payment_page"),
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)

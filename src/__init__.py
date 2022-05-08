@@ -1,5 +1,4 @@
 import re
-import os
 import logging
 
 from multiprocessing import Process
@@ -43,18 +42,27 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
-@app.route('/api/v1/payment', methods=['POST'])
-def webhook_valid_payment():
-    data = request.get_json()
-    transfer_paid_items(data['charge']['correlationID'])
+@app.route('/api/v1/payments', methods=['GET', 'POST'])
+def webhook_payment_check():
+    if request.method == 'POST':
+        data = request.get_json()
+        pprint(data)
+
+        return jsonify({
+            "success": {
+                "message": "Pix's status has changed and the payment appears as paid.",
+                "data": data,
+                "code": 200,
+            }
+        }), 200
 
     return jsonify({
-        "success": {
-            "message": "Pix's status has changed and the payment appears as paid.",
-            "data": data,
-            "code": 200,
+        "error": {
+            "message": "This route requires calling via a Post method.",
+            "type": "RequestMethodError",
+            "code": 404
         }
-    }), 200
+    }), 404
 
 
 def main() -> None:
