@@ -10,7 +10,7 @@ def start(update: Update, context: CallbackContext) -> int:
 
     # Upsert to collect userdata from costumers.
     COSTUMERS_COLLECTION.update_one(
-        { 'identifier': user.id },
+        {'identifier': user.id},
         {
             '$set': {
                 'last_interact_with_bot': datetime.now()

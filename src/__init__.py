@@ -20,8 +20,6 @@ from src import inline
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from pprint import pprint
-
 from telegram.ext import (
     Updater,
     Filters,
@@ -125,11 +123,7 @@ def main() -> None:
             ],
             ORDERS: [
                 CallbackQueryHandler(
-                    start.over, pattern='^' + 'back_to_home' + '$'),
-                # CallbackQueryHandler(
-                #     start.over, pattern='^' + 'back_to_home' + '$'),
-                # CallbackQueryHandler(
-                #     start.over, pattern='^' + 'back_to_home' + '$')
+                    start.over, pattern='^' + 'back_to_home' + '$')
             ]
         },
         fallbacks=[CommandHandler('start', start.start)],
