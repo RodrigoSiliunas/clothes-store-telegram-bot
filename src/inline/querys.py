@@ -25,12 +25,12 @@ def querys(update: Update, context: CallbackContext) -> int:
     if query == "display all informations":
         cpf_list = get_database_info(reply_markup)
 
-        update.inline_query.answer(cpf_list)
+        update.inline_query.answer(cpf_list, cache_time=0)
 
     if query == "display states":
         states = get_all_state_info()
 
-        update.inline_query.answer(states)
+        update.inline_query.answer(states, cache_time=0)
 
     if "display by state" in query:
         try:
@@ -39,7 +39,7 @@ def querys(update: Update, context: CallbackContext) -> int:
             return STORE
         cpf_list = get_database_info(reply_markup, uf)
 
-        update.inline_query.answer(cpf_list)
+        update.inline_query.answer(cpf_list, cache_time=0)
 
     if ("display by age" in query):
         query = update.inline_query.query
@@ -48,6 +48,6 @@ def querys(update: Update, context: CallbackContext) -> int:
             age = query.split()[3]
             cpf_list = get_database_info(reply_markup, age=int(age))
 
-            update.inline_query.answer(cpf_list)
+            update.inline_query.answer(cpf_list, cache_time=0)
 
     return STORE
