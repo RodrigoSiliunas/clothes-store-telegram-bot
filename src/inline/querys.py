@@ -17,7 +17,8 @@ def querys(update: Update, context: CallbackContext) -> int:
             InlineKeyboardButton("🔙 Voltar para loja",
                                  callback_data='delete_inline_message'),
             InlineKeyboardButton("🛒 Adicionar ao Carrinho",
-                                 callback_data='add_to_cart')
+                                 callback_data='add_to_cart',
+                                 switch_inline_query_current_chat="display states")
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
