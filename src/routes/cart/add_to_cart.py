@@ -41,7 +41,8 @@ def add(update: Update, context: CallbackContext) -> None:
 
     # Return a message to your costumer.
     query.answer(
-        text='Você adicionou a informação ao seu carrinho de compras. A página da loja não é atualizada dinamicamente, se houver dúvida pode verificar seu carrinho de compras.', show_alert=True)
+        text='Você adicionou o CPF ao seu carrinho de compras.', show_alert=True)
+        
 
     # Delete inline message and remove message from DB.
     delete_message(update, context)
