@@ -34,7 +34,7 @@ def get_default_message(
         f'*Identifier*: _{identifier}_,\n' \
         f'*Nome*: _{name}_,\n' \
         f'*Quantidade*: _{quantity}_,\n' \
-        f'*Peso*: _{weight}_,\n\n' \
+        f'*Peso*: _{weight}_,\n' \
         f'*Preço*: _{value}_\n\n\n' \
         f'✨ Você está na página *{page + 1}* de *{orders_in_bag}*.\n' \
         f'💰 O valor total do seu pedido está em: R$ {total_value_of_order:.2f}'

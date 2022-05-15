@@ -38,10 +38,10 @@ def previous_page(update: Update, context: CallbackContext) -> int:
 
     message = get_default_message(
         update.effective_user.id,
-        orders[page]['number'],
-        orders[page]['age'],
-        orders[page]['state'],
+        orders[page]['name'],
+        orders[page]['quantity'],
         orders[page]['value'],
+        orders[page]['weight'],
         page + 1,
         len(orders)
     )
