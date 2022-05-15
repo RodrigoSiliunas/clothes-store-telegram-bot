@@ -3,7 +3,7 @@ import os
 import logging
 
 from multiprocessing import Process
-from src.configuration import DevelopmentConfiguration
+from src.configuration import DevelopmentConfiguration, ProductionConfiguration
 
 from src.utils.constants import HOME, ACCOUNT, STORE, CART, PAYMENT, ORDERS
 from src.utils.functions import delete_message, remove_unfinished_order, transfer_paid_items
@@ -69,7 +69,7 @@ def webhook_payment_check():
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
-    updater = Updater(DevelopmentConfiguration.BOT_SECRET_KEY)
+    updater = Updater(ProductionConfiguration.BOT_SECRET_KEY)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher

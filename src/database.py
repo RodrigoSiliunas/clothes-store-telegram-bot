@@ -10,4 +10,4 @@ from pymongo import MongoClient
 ==========================================================================
 """
 
-client = MongoClient(DevelopmentConfiguration.MONGO_URI)
+client = MongoClient(ProductionConfiguration.MONGO_URI)
