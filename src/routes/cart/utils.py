@@ -1,5 +1,4 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from src.utils.functions import encode_cpf
 
 
 def get_reply_markup() -> InlineKeyboardMarkup:
@@ -23,21 +22,20 @@ def get_reply_markup() -> InlineKeyboardMarkup:
 
 
 def get_default_message(
-        identifier: str, number: str, age: int | float, state: str, balance: int | float,
-        price: int | float, page: int, orders_in_bag: int, total_value_of_order: int | float) -> str:
+        identifier: str, name: str, quantity: int, weight: int | float, value: int | float,
+        page: int, orders_in_bag: int, total_value_of_order: int | float) -> str:
 
     message = f'🛒 *VOCÊ ESTÁ NO SEU CARRINHO DE COMPRAS!*\n\n' \
-        f'Aqui você pode verificar informações sobre seu último pedido. ' \
+        f'Aqui você pode visualizar os items dentro do seu carrinho. ' \
         f'Você também pode excluir um item do seu carrinho se preferir. ' \
         f'Se sua intenção é finalizar o pedido não espere para clicar em _"_*Efetuar* ' \
         f'*Pagamento*_"_.\n\n\n' \
         f'*Informações sobre o item atual:*\n\n' \
         f'*Identifier*: _{identifier}_,\n' \
-        f'*Número*: _{encode_cpf(number)}_,\n' \
-        f'*Idade*: _{age}_,\n' \
-        f'*UF*: _{state}_,\n' \
-        f'*Saldo*: _{balance}_,\n\n' \
-        f'*Preço*: _{price}_\n\n\n' \
+        f'*Nome*: _{name}_,\n' \
+        f'*Quantidade*: _{quantity}_,\n' \
+        f'*Peso*: _{weight}_,\n\n' \
+        f'*Preço*: _{value}_\n\n\n' \
         f'✨ Você está na página *{page + 1}* de *{orders_in_bag}*.\n' \
         f'💰 O valor total do seu pedido está em: R$ {total_value_of_order:.2f}'
 

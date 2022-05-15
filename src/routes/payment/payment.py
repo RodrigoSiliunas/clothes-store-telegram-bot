@@ -18,14 +18,14 @@ def main_page(update: Update, callback: CallbackContext) -> int:
 
     keyboard = [
         [
+            InlineKeyboardButton('❖ Efetuar Pix',
+                                 callback_data='create_pix_request')
+        ],
+        [
             InlineKeyboardButton('🔙 Voltar à página inicial',
                                  callback_data='back_to_home'),
             InlineKeyboardButton('🗑️ Descartar Pedido',
-                                 callback_data='back_to_home'),
-        ],
-        [
-            InlineKeyboardButton('❖ Efetuar Pix',
-                                 callback_data='create_pix_request'),
+                                 callback_data='back_to_home')
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)

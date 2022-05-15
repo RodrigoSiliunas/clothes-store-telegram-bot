@@ -10,20 +10,14 @@ def main_page(update: Update, context: CallbackContext) -> int:
 
     keyboard = [
         [
+            InlineKeyboardButton("🧥 Roupas Disponíveis",
+                                 switch_inline_query_current_chat="display products")
+        ],
+        [
             InlineKeyboardButton("🔙 Voltar à página inicial",
                                  callback_data='back_to_home'),
             InlineKeyboardButton("🛒 Meu Carrinho",
                                  callback_data="cart_main_page"),
-        ],
-        [
-            InlineKeyboardButton("👥 Verificar CPF's disponíveis",
-                                 switch_inline_query_current_chat="display all informations")
-        ],
-        [
-            InlineKeyboardButton("🔍 Buscar por Estado 🇧🇷",
-                                 switch_inline_query_current_chat="display states"),
-            InlineKeyboardButton("🔍 Buscar por Idade 👴",
-                                 switch_inline_query_current_chat="display by age")
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -55,10 +49,10 @@ def main_page(update: Update, context: CallbackContext) -> int:
         }
     ])
 
-    message_to_send = f'*{query.from_user.first_name}, você acessou a página:*\n🧛 _Comprar CPF_\n\n' \
-        f'Você acessou nossa loja de CPF. Nessa área você ' \
-        f'pode selecionar produtos por idade ou estado. Fique a vontade para explorar o ' \
-        f'quanto quiser e adicionar produtos ao seu carrinho.\n\n'
+    message_to_send = f'*{query.from_user.first_name}, você está na página:*\n👕 _Catálogo_\n\n' \
+        f'Você acessou o nosso catálogo. Nessa área você ' \
+        f'pode visualizar nossos produtos. Fique a vontade para explorar o ' \
+        f'quanto quiser e adicionar items ao seu carrinho.\n\n'
 
     query.edit_message_text(
         text=message_to_send, reply_markup=reply_markup, parse_mode='Markdown')

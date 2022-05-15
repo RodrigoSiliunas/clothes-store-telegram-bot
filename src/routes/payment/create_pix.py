@@ -30,7 +30,7 @@ def create_pix_request(update: Update, context: CallbackContext) -> int:
     transaction_id = user_data['transaction_id']
     total_value_of_order = 1  # cart_info['total_value'] * 100
 
-    # Create a request with Pix
+    # Create a request with PIX
     pix_request = PIX.create_payment_request(
         int(total_value_of_order), transaction_id)
 

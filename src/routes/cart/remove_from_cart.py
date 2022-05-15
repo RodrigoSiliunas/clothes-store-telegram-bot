@@ -2,7 +2,7 @@
 from telegram import Update
 from telegram.ext import CallbackContext
 from .utils import get_reply_markup, get_default_message
-from src.utils.constants import CART, COSTUMERS_COLLECTION, STORE_COLLECTION, CPF_COLLECTION
+from src.utils.constants import CART, COSTUMERS_COLLECTION, STORE_COLLECTION
 
 
 def remove(update: Update, context: CallbackContext) -> int:
@@ -49,14 +49,6 @@ def remove(update: Update, context: CallbackContext) -> int:
             }
         }
     )
-
-    # We added the removed information to the CPF collection again.
-    add_to_collection = dict(cart["cart"][page])
-
-    if add_to_collection['inserted_at']:
-        del add_to_collection['inserted_at']
-
-    CPF_COLLECTION.insert_one(add_to_collection)
 
     # Here we do a aggregate and then save/update it on store collections to after finds and updates.
     COSTUMERS_COLLECTION.aggregate([
@@ -109,11 +101,11 @@ def remove(update: Update, context: CallbackContext) -> int:
 
     message_to_send = get_default_message(
         identifier=cart["cart"][page]["_id"],
-        number=cart["cart"][page]["number"],
-        age=cart["cart"][page]["age"],
-        state=cart["cart"][page]["state"],
-        balance=cart["cart"][page]["balance"],
-        price=cart["cart"][page]["value"],
+        name=cart["cart"][page]["name"],
+        quantity=cart["cart"][page]["quantity"],
+        weight=cart["cart"][page]["weight"],
+        value=cart["cart"][page]["value"],
+
         page=page,
         orders_in_bag=orders_in_bag,
         total_value_of_order=total_value_of_order

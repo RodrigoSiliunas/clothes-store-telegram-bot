@@ -1,4 +1,5 @@
 import re
+import os
 import logging
 
 from multiprocessing import Process
@@ -6,7 +7,6 @@ from src.configuration import DevelopmentConfiguration
 
 from src.utils.constants import HOME, ACCOUNT, STORE, CART, PAYMENT, ORDERS
 from src.utils.functions import delete_message, remove_unfinished_order, transfer_paid_items
-
 
 from src.routes import store
 from src.routes import cart
@@ -53,13 +53,13 @@ def webhook_payment_check():
             "success": {
                 "message": "Pix's status has changed and the payment appears as paid.",
                 "data": data,
-                "code": 200,
+                "code": 200
             }
         }), 200
 
     return jsonify({
         "error": {
-            "message": "This route requires calling via a Post method.",
+            "message": "This route requires calling via a post method.",
             "type": "RequestMethodError",
             "code": 404
         }
@@ -94,8 +94,6 @@ def main() -> None:
             STORE: [
                 MessageHandler(Filters.regex(
                     re.compile(r'^Informação Detalhada:', re.IGNORECASE)), inline.set_message),
-                MessageHandler(Filters.regex(
-                    re.compile(r'^Ø', re.IGNORECASE)), inline.display_by_state),
                 CallbackQueryHandler(
                     cart.main_page, pattern='^' + 'cart_main_page' + '$'),
                 CallbackQueryHandler(
@@ -154,6 +152,9 @@ def main() -> None:
 
     # Start the Bot
     updater.start_polling()
+
+    # Uncommit if you are in Development Mode — This will start the Webhook
+    # app.run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since

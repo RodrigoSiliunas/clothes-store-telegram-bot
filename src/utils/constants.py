@@ -15,7 +15,7 @@ ORDERS = 5
 
 # Constants for navigating between MongoDB collections.
 DB = client['telegram']
-CPF_COLLECTION = DB['cpfs']
+PRODUCTS_COLLECTION = DB['products']
 COSTUMERS_COLLECTION = DB['costumers']
 SOLDED_COLLECTION = DB['solded']
 STORE_COLLECTION = DB['store']

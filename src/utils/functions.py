@@ -1,4 +1,3 @@
-from uuid import uuid4
 from time import sleep
 
 from datetime import datetime, timedelta
@@ -14,81 +13,31 @@ from telegram import (
 from telegram.ext import CallbackContext
 
 from src.utils.constants import (
-    CPF_COLLECTION,
+    PRODUCTS_COLLECTION,
     COSTUMERS_COLLECTION,
     SOLDED_COLLECTION,
     STORE_COLLECTION
 )
 
 
-def encode_cpf(cpf: str) -> str:
-    cpf = list(cpf)
+def get_database_info(reply_markup: InlineKeyboardMarkup) -> list:
+    products_arr = []
 
-    for i in range(4, 11):
-        if i != 7:
-            cpf[i] = 'X'
+    collection = PRODUCTS_COLLECTION.find()
 
-    return "".join(cpf)
-
-
-def get_all_state_info() -> list:
-    state_list = [
-        {'Acre': 'AC'}, {'Alagoas': 'AL'}, {'Amapá': 'AP'}, {'Amazonas': 'AM'},
-        {'Bahia': 'BA'}, {'Ceará': 'CE'}, {
-            'Distrito Federal': 'DF'}, {'Espírito Santo': 'ES'},
-        {'Goiás': 'GO'}, {'Maranhão': 'MA'}, {
-            'Mato Grosso': 'MT'}, {'Mato Grosso do Sul': 'MS'},
-        {'Minas Gerais': 'MG'}, {'Pará': 'PA'}, {
-            'Paraíba': 'PB'}, {'Paraná': 'PR'},
-        {'Pernambuco': 'PE'}, {'Piauí': 'PI'}, {
-            'Rio de Janeiro': 'RJ'}, {'Rio Grande do Norte': 'RN'},
-        {'Rio Grande do Sul': 'RS'}, {'Rondônia': 'RO'}, {
-            'Roraima': 'RR'}, {'Santa Catarina': 'RS'},
-        {'São Paulo': 'SP'}, {'Sergipe': 'SE'}, {'Tocantins': 'TO'}
-    ]
-
-    answer_state = []
-
-    for state in state_list:
-        for key, value in state.items():
-            answer_state.append(
-                InlineQueryResultArticle(
-                    id=uuid4(),
-                    title=value,
-                    description=key,
-                    input_message_content=InputTextMessageContent(
-                        f'Ø {value}',
-                        parse_mode=ParseMode.MARKDOWN
-                    ),
-                )
-            )
-
-    return answer_state
-
-
-def get_database_info(reply_markup: InlineKeyboardMarkup, state: str = None, age: int = None) -> list:
-    cpf_list = []
-
-    if state is not None:
-        collection = CPF_COLLECTION.find({'state': state})
-    elif age is not None:
-        collection = CPF_COLLECTION.find({'age': age})
-    else:
-        collection = CPF_COLLECTION.find()
-
-    for cpf in collection:
-        description = f'{cpf["age"]} | {cpf["state"]} | Saldo: {cpf["balance"]} | R$ {cpf["value"]}'
+    for product in collection:
+        description = f'{product["quantity"]}x {product["name"]} | Por apenas: R${product["value"]:.2f}'
         input_message_content = f'*Informação Detalhada:*\n\n' \
-                                f'🔒 *Identify*: _{cpf["_id"]}_,\n' \
-                                f'🔢 *Número*: _{encode_cpf(cpf["number"])}_,\n' \
-                                f'👴 *Idade*: _{cpf["age"]}_,\n' \
-                                f'💰 *Saldo Disponível*: _{cpf["balance"]}_,\n\n' \
-                                f'💸 *Preço da Informação*: _{cpf["value"]}_'
+                                f'🔒 *Identify*: _{product["_id"]}_,\n' \
+                                f'👖 *Nome*: _{product["name"]}_,\n' \
+                                f'🔢 *Quantidade*: _{product["quantity"]}_,\n' \
+                                f'💰 *Peso*: _{product["weight"]}_,\n\n' \
+                                f'💸 *Preço*: R$_{product["value"]:.2f}_'
 
-        cpf_list.append(
+        products_arr.append(
             InlineQueryResultArticle(
-                id=str(cpf['_id']),
-                title=encode_cpf(cpf['number']),
+                id=str(product['_id']),
+                title=product['name'],
                 description=description,
                 input_message_content=InputTextMessageContent(
                     input_message_content,
@@ -98,7 +47,7 @@ def get_database_info(reply_markup: InlineKeyboardMarkup, state: str = None, age
             )
         )
 
-    return cpf_list
+    return products_arr
 
 
 def delete_message(update: Update, context: CallbackContext) -> None:
@@ -107,7 +56,7 @@ def delete_message(update: Update, context: CallbackContext) -> None:
 
 def remove_unfinished_order() -> None:
     while True:
-        print(f'🔍 Estamos verificando se não há nenhum CPF esquecido nos carrinhos de compras.')
+        print(f'🔍 Estamos verificando se não há nenhum produto esquecido nos carrinhos de compras.')
         costumers = COSTUMERS_COLLECTION.find()
 
         for costumer in costumers:
@@ -117,10 +66,6 @@ def remove_unfinished_order() -> None:
                     acctualy_date = item['inserted_at'] + timedelta(seconds=40)
 
                     if datetime.now() >= acctualy_date:
-                        del item['inserted_at']
-
-                        CPF_COLLECTION.insert_one(item)
-
                         # Here we remove the page information from the user's cart.
                         # We also removed the null that is left when removing an array item in MongoDB.
                         COSTUMERS_COLLECTION.update_one(

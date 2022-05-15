@@ -22,7 +22,7 @@ class PixBot:
         payload = {
             'correlationID': id,
             'value': amount,
-            'expiresIn': 1200
+            'expiresIn': 1200 # Seconds
         }
 
         response = requests.post(

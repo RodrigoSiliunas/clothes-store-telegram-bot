@@ -1,4 +1,4 @@
-from .configuration import ProductionConfiguration
+from .configuration import ProductionConfiguration, DevelopmentConfiguration
 from pymongo import MongoClient
 
 """
@@ -10,4 +10,4 @@ from pymongo import MongoClient
 ==========================================================================
 """
 
-client = MongoClient(ProductionConfiguration.MONGO_URI)
+client = MongoClient(DevelopmentConfiguration.MONGO_URI)

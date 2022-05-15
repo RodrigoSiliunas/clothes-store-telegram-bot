@@ -57,7 +57,7 @@ def start(update: Update, context: CallbackContext) -> int:
     keyboard = [
         [
             InlineKeyboardButton(
-                "🧛 Comprar CPF", callback_data="open_store_information"),
+                "👕 Acessar Loja", callback_data="open_store_information"),
             InlineKeyboardButton(
                 "👤 Usuário", callback_data="user_information")
         ],
@@ -71,9 +71,10 @@ def start(update: Update, context: CallbackContext) -> int:
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     message_to_send = f'*Bem-vindo, {user.first_name}!*\n\n' \
-        'Você acaba de acessar a _loja do Fuinha_. Necessitando de informação para ' \
-        'algum serviço? Sinta-se livre para se registrar e explorar nossos produtos.\n\n' \
-        '[🤖 Suporte](https://t.me/empiresuporte3)'
+        'Você acaba de acessar a *Clothes Store*. Procurando por roupas para ' \
+        'revenda? Te convidamos a interagir com o nosso atendente virtual e a conhecer nossos ' \
+        'produtos. Trabalhamos com as melhores marcas e com um ótimo preço.\n\n' \
+        '[🤖 Suporte](https://t.me/+sMv1RgwuHqk1MTMx)'
 
     update.message.reply_text(text=message_to_send,
                               parse_mode='Markdown', reply_markup=reply_markup)

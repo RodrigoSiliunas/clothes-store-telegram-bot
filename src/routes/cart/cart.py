@@ -64,11 +64,11 @@ def main_page(update: Update, context: CallbackContext) -> int:
 
     message_to_send = get_default_message(
         identifier=cart["cart"][page]["_id"],
-        number=cart["cart"][page]["number"],
-        age=cart["cart"][page]["age"],
-        state=cart["cart"][page]["state"],
-        balance=cart["cart"][page]["balance"],
-        price=cart["cart"][page]["value"],
+        name=cart["cart"][page]["name"],
+        quantity=cart["cart"][page]["quantity"],
+        weight=cart["cart"][page]["weight"],
+        value=cart["cart"][page]["value"],
+
         page=page,
         orders_in_bag=orders_in_bag,
         total_value_of_order=total_value_of_order
